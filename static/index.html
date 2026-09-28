@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SME Credit File</title>
+  <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div>
+      <p class="eyebrow">Synthetic corporate book · Bratislava</p>
+      <h1>SME Credit File</h1>
+      <p class="lede" id="lede">Loading the annual-review queue.</p>
+    </div>
+    <p class="asof" id="asof"></p>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="layout">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Chase list</h2>
+        <button type="button" class="text-btn" id="show-sql" data-key="chase">Show SQL</button>
+      </div>
+      <p class="hint">Sorted by what actually blocks the review: no 2025 statement, then overdue documents, then a balance sheet that does not balance.</p>
+      <div class="table-wrap">
+        <table id="chase">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Segment</th>
+              <th>File</th>
+              <th>Statement</th>
+              <th class="num">Priority</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <aside class="side">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Completeness by segment</h2>
+        </div>
+        <div id="segments"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Document cycle, 2025</h2>
+          <button type="button" class="text-btn" data-key="cycle">Show SQL</button>
+        </div>
+        <div id="cycle"></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="split">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Balance sheet breaks</h2>
+        <button type="button" class="text-btn" data-key="breaks">Show SQL</button>
+      </div>
+      <p class="hint">Assets minus equity minus liabilities. A non-zero gap is a capture error.</p>
+      <div class="table-wrap">
+        <table id="breaks">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Year</th>
+              <th class="num">Assets</th>
+              <th class="num">Gap</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Margin vs segment</h2>
+        <button type="button" class="text-btn" data-key="margins">Show SQL</button>
+      </div>
+      <p class="hint">2025 net margin at least 20 points away from the segment average.</p>
+      <div class="table-wrap">
+        <table id="margins">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Segment</th>
+              <th class="num">Margin</th>
+              <th class="num">Segment</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <dialog id="sql-dialog">
+    <form method="dialog">
+      <div class="panel-head">
+        <h2 id="sql-title">SQL</h2>
+        <button value="cancel" class="text-btn">Close</button>
+      </div>
+      <pre id="sql-body"></pre>
+    </form>
+  </dialog>
+
+  <dialog id="company-dialog">
+    <form method="dialog">
+      <div class="panel-head">
+        <h2 id="company-title">Client</h2>
+        <button value="cancel" class="text-btn">Close</button>
+      </div>
+      <div id="company-body"></div>
+    </form>
+  </dialog>
+
+  <footer>
+    <p>Fictional clients, generated so the SQL has something true to find. Not a live bank book and not FinStat.</p>
+  </footer>
+  <script src="static/app.js"></script>
+</body>
+</html>
